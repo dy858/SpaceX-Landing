@@ -7,12 +7,12 @@ using Unity.MLAgents.Actuators;
 
 public class AgentController : Agent
 {
-    public RocketController2 rc;
+    public RocketController rc;
     public bool episodeFinished = false;
 
     public override void Initialize()
     {
-        rc = GetComponent<RocketController2>();
+        rc = GetComponent<RocketController>();
     }
 
     public override void OnEpisodeBegin()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RocketController : MonoBehaviour
 {
     public Rigidbody rb;
-    public AgentController2 ac;
+    public AgentController ac;
     public Renderer floorRenderer;
     public float force = 20f;
     public bool engineOn = false;
@@ -17,7 +17,7 @@ public class RocketController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        ac = GetComponent<AgentController2>();
+        ac = GetComponent<AgentController>();
     }
 
     public void ResetRocket()
