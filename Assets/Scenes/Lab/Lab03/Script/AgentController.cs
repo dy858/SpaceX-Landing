@@ -23,7 +23,7 @@ public class AgentController : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        Vector3 rocketPosition = rc.transform.position;
+        Vector3 rocketPosition = rc.transform.localPosition;
         Vector3 rocketVelocity = rc.rb.velocity;
 
         sensor.AddObservation(rocketPosition.x);

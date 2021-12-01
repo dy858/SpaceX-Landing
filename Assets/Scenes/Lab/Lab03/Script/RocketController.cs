@@ -44,7 +44,7 @@ public class RocketController : MonoBehaviour
 
         if (reset)
         {
-            transform.position = initialPosition;
+            transform.localPosition = new Vector3(0, 20, 0);
             rb.velocity = Vector3.zero;
 
             reset = false;

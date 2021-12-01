@@ -1,5 +1,5 @@
 behaviors:
     My Behavior:
-        max_steps: 20000
-        summary_freq: 20000
+        max_steps: 50000
+        summary_freq: 1000
        
