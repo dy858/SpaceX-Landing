@@ -425,7 +425,10 @@ GameObject:
   - component: {fileID: 708788927}
   - component: {fileID: 708788926}
   - component: {fileID: 708788925}
+  - component: {fileID: 708788931}
+  - component: {fileID: 708788930}
   - component: {fileID: 708788924}
+  - component: {fileID: 708788929}
   - component: {fileID: 708788923}
   m_Layer: 0
   m_Name: Rocket
@@ -443,20 +446,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 708788922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 416499f4591a6814ca2c6d7c67569860, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  floorRenderer: {fileID: 0}
-  mainEngineForce: 20
-  leftEngineForce: 1
-  rightEngineForce: 1
-  mainEngineOn: 0
-  leftEngineOn: 0
-  rightEngineOn: 0
-  mainEngineFx: {fileID: 1810514906}
-  leftEngineFx: {fileID: 152890890}
-  rightEngineFx: {fileID: 419243218}
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!54 &708788924
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -484,8 +478,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.6929262, y: 49.171635, z: 3.6155078}
+  m_Center: {x: -0.012162328, y: 24.085817, z: 0.11435115}
 --- !u!23 &708788926
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -553,6 +547,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &708788929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708788922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 020000000200000002000000
+    VectorActionSize: 020000000200000002000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &708788930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708788922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612e5219290c51349bf5ccd2a474d7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  rc: {fileID: 0}
+  episodeFinished: 0
+--- !u!114 &708788931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708788922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c71b01c5ff557439fa30d167114c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  ac: {fileID: 0}
+  mainEngineforce: 20
+  leftEngineforce: 1
+  rightEngineforce: 1
+  mainEngineOn: 0
+  leftEngineOn: 0
+  rightEngineOn: 0
+  mainEngineFx: {fileID: 0}
+  leftEngineFx: {fileID: 0}
+  rightEngineFx: {fileID: 0}
+  floorRenderer: {fileID: 0}
+  reset: 0
+  stop: 0
+  initHeight: 10
 --- !u!1 &1363097073
 GameObject:
   m_ObjectHideFlags: 0
