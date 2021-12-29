@@ -16,6 +16,12 @@ public class RocketControllerFinal : MonoBehaviour
     public bool forwardEngineOn = false;
     public bool backwardEngineOn = false;
 
+    public GameObject mainEngineFx;
+    public GameObject leftEngineFx;
+    public GameObject rightEngineFx;
+    public GameObject forwardEngineFx;
+    public GameObject backwardEngineFx;
+
     public bool reset = false;
     public bool stop = false;
 
@@ -71,7 +77,7 @@ public class RocketControllerFinal : MonoBehaviour
         }
         else
         {
-            rightngineOn = false;
+            rightEngineOn = false;
         }
     }
 
@@ -80,7 +86,7 @@ public class RocketControllerFinal : MonoBehaviour
         forwardEngineOn = (value == 1);
     }
 
-    public void SetbackwardEngine(int value)
+    public void SetBackwardEngine(int value)
     {
         backwardEngineOn = (value == 1);
     }
@@ -122,9 +128,117 @@ public class RocketControllerFinal : MonoBehaviour
             landingZoneNormal.SetActive(false);
             landingZoneSuccess.SetActive(false);
             landingZoneFail.SetActive(true);
+
+            ac.EndEpisode(0);
+            return;
+        }
+        if (rb.IsSleeping())
+        {
+            if (Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)) > 0.9 &&
+                Mathf.Abs(Vector3.Dot(transform.up, Vector3.right)) < 0.1 &&
+                Mathf.Abs(Vector3.Dot(transform.up, Vector3.forward)) < 0.1)
+            {
+                float distance = Vector3.Distance(landingZoneNormal.transform.position, new Vector3(transform.position.x, landingZoneNormal.transform.position.y, transform.position.z));
+
+                if(distance < 3f)
+                {
+                    landingZoneNormal.SetActive(false);
+                    landingZoneSuccess.SetActive(true);
+                    landingZoneFail.SetActive(false);
+                    //ac.EndEpisode(1f - distance / 3f);
+                    ac.EndEpisode(1f);
+
+                }
+                else
+                {
+                    landingZoneNormal.SetActive(false);
+                    landingZoneSuccess.SetActive(false);
+                    landingZoneFail.SetActive(true);
+                    //ac.EndEpisode(1f - distance / 3f);
+                    ac.EndEpisode(0);
+                }
+            }
+            else
+            {
+                landingZoneNormal.SetActive(false);
+                landingZoneSuccess.SetActive(false);
+                landingZoneFail.SetActive(true);
+                ac.EndEpisode(0);
+            }
         }
 
 
+        if (stop)
+        {
+            return;
+        }
+
+        if (mainEngineOn)
+        {
+            rb.AddForceAtPosition(transform.up * mainEngineForce, transform.position);
+        }
+        else
+        {
+
+        }
+        if (leftEngineOn)
+        {
+            rb.AddForceAtPosition(transform.right * sideEngineForce, leftEngineFx.transform.position);
+        }
+
+        else
+        {
+
+        }
+        if (rightEngineOn)
+        {
+            rb.AddForceAtPosition(-transform.right * sideEngineForce, rightEngineFx.transform.position);
+        }
+        else
+        {
+
+        }
+        if (forwardEngineOn)
+        {
+            rb.AddForceAtPosition(-transform.forward * sideEngineForce, forwardEngineFx.transform.position);
+        }
+        else
+        {
+
+        }
+
+        if (backwardEngineOn)
+        {
+            rb.AddForceAtPosition(transform.forward * sideEngineForce, backwardEngineFx.transform.position);
+        }
+        else
+        {
+
+        }
+
+
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (ac.episodeFinished || stop)
+        {
+            return;
+        }
+
+        //Debug.Log(collision.relativeVelocity);
+        if (collision.relativeVelocity.y > 10f)
+        {
+            landingZoneNormal.SetActive(false);
+            landingZoneSuccess.SetActive(false);
+            landingZoneFail.SetActive(true);
+            ac.EndEpisode(0);
+        }
+        else
+        {
+            stop = true;
+        }
     }
 
 

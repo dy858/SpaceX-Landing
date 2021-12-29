@@ -5,14 +5,14 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class AgentControllerLRFB : Agent
+public class AgentControllerFinal : Agent
 {
     public RocketControllerFinal rc;
     public bool episodeFinished = false;
 
     public override void Initialize()
     {
-        rc = GetComponent<RocketControllerLRFB>();
+        rc = GetComponent<RocketControllerFinal>();
     }
 
     public override void OnEpisodeBegin()
@@ -24,7 +24,7 @@ public class AgentControllerLRFB : Agent
     public override void CollectObservations(VectorSensor sensor) //나의 현재상태를 알려주는 함수
     {
         Vector3 rocketPosition = rc.transform.position;
-        Vector3 rocketRotation = rc.transform.roatation.eulerAngles;
+        Vector3 rocketRotation = rc.transform.rotation.eulerAngles;
 
         Vector3 rocketVelocity = rc.rb.velocity;
         Vector3 rocketAngularVelocity = rc.rb.angularVelocity;
