@@ -22,6 +22,12 @@ public class RocketControllerFinal : MonoBehaviour
     public GameObject forwardEngineFx;
     public GameObject backwardEngineFx;
 
+    ParticleSystem.MainModule mainEngineFxModule;
+    ParticleSystem.MainModule leftEngineFxModule;
+    ParticleSystem.MainModule rightEngineFxModule;
+    ParticleSystem.MainModule forwardEngineFxModule;
+    ParticleSystem.MainModule backwardEngineFxModule;
+
     public bool reset = false;
     public bool stop = false;
 
@@ -33,11 +39,22 @@ public class RocketControllerFinal : MonoBehaviour
     public float rotationRange = 0f;
     public float xzRange = 0f;
 
+    public GameObject LandingLeg1;
+    public GameObject LandingLeg2;
+    public GameObject LandingLeg3;
+    public GameObject LandingLeg4;
+
 
     void Start()
     {
         ac = GetComponent<AgentControllerFinal>();
         rb = GetComponent<Rigidbody>();
+
+        mainEngineFxModule = mainEngineFx.GetComponent<ParticleSystem>().main;
+        leftEngineFxModule = leftEngineFx.GetComponent<ParticleSystem>().main;
+        rightEngineFxModule = rightEngineFx.GetComponent<ParticleSystem>().main;
+        forwardEngineFxModule = forwardEngineFx.GetComponent<ParticleSystem>().main;
+        backwardEngineFxModule = backwardEngineFx.GetComponent<ParticleSystem>().main;
     }
 
     public void ResetRocket()
@@ -93,6 +110,12 @@ public class RocketControllerFinal : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float h = (6 - (Mathf.Clamp(transform.position.y, 4, 10) - 4)) * 20;
+        LandingLeg1.transform.localRotation = Quaternion.Euler(new Vector3(0, h, 0));
+        LandingLeg2.transform.localRotation = Quaternion.Euler(new Vector3(h, 0, -90));
+        LandingLeg3.transform.localRotation = Quaternion.Euler(new Vector3(0, -h, -180));
+        LandingLeg4.transform.localRotation = Quaternion.Euler(new Vector3(-h, 0, 90));
+
         if (ac.episodeFinished)
         {
             return;
@@ -176,44 +199,49 @@ public class RocketControllerFinal : MonoBehaviour
         if (mainEngineOn)
         {
             rb.AddForceAtPosition(transform.up * mainEngineForce, transform.position);
+            mainEngineFxModule.startColor = new Color(255, 119, 0);
         }
         else
         {
-
+            mainEngineFxModule.startColor = Color.clear;
         }
         if (leftEngineOn)
         {
             rb.AddForceAtPosition(transform.right * sideEngineForce, leftEngineFx.transform.position);
+            leftEngineFxModule.startColor = Color.white;
         }
 
         else
         {
-
+            leftEngineFxModule.startColor = Color.clear;
         }
         if (rightEngineOn)
         {
             rb.AddForceAtPosition(-transform.right * sideEngineForce, rightEngineFx.transform.position);
+            rightEngineFxModule.startColor = Color.white;
         }
         else
         {
-
+            rightEngineFxModule.startColor = Color.clear;
         }
         if (forwardEngineOn)
         {
             rb.AddForceAtPosition(-transform.forward * sideEngineForce, forwardEngineFx.transform.position);
+            forwardEngineFxModule.startColor = Color.white;
         }
         else
         {
-
+            forwardEngineFxModule.startColor = Color.clear;
         }
 
         if (backwardEngineOn)
         {
             rb.AddForceAtPosition(transform.forward * sideEngineForce, backwardEngineFx.transform.position);
+            backwardEngineFxModule.startColor = Color.white;
         }
         else
         {
-
+            backwardEngineFxModule.startColor = Color.clear;
         }
 
 
